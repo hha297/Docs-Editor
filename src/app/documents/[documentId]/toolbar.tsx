@@ -9,6 +9,7 @@ import {
         Bold,
         ChevronDown,
         DeleteIcon,
+        HighlighterIcon,
         Italic,
         ListTodoIcon,
         LucideIcon,
@@ -21,7 +22,7 @@ import {
         Underline,
         Undo2Icon,
 } from 'lucide-react';
-import React from 'react';
+import { type ColorResult, CirclePicker, SketchPicker } from 'react-color';
 
 interface ToolbarButtonProps {
         icon: LucideIcon;
@@ -41,7 +42,7 @@ const ToolbarButton = ({ icon: Icon, isActive, onClick }: ToolbarButtonProps) =>
         );
 };
 export const Toolbar = () => {
-        const { editor } = useEditorStore((state) => state);
+        const { editor } = useEditorStore();
         const sections: { label: string; icon: LucideIcon; onClick: () => void; isActive?: boolean }[][] = [
                 [
                         { label: 'Undo', icon: Undo2Icon, onClick: () => editor?.chain().focus().undo().run() },
@@ -127,8 +128,8 @@ export const Toolbar = () => {
                                         onClick={item.onClick}
                                 />
                         ))}
-                        {/* TODO: Text Color */}
-                        {/* TODO: Highlight Color */}
+                        <TextColorButton />
+                        <TextHighlightButton />
                         <Separator orientation="vertical" className="mx-2" />
                         {/* TODO: Link, Image */}
                         {/* TODO: Align */}
@@ -147,7 +148,7 @@ export const Toolbar = () => {
 };
 
 const FontFamilyButton = () => {
-        const { editor } = useEditorStore((state) => state);
+        const { editor } = useEditorStore();
         const fontFamilies = [
                 { label: 'Arial', value: 'Arial' },
                 { label: 'Times New Roman', value: 'Times New Roman' },
@@ -207,7 +208,7 @@ const FontFamilyButton = () => {
 };
 
 const HeadingLevelButton = () => {
-        const editor = useEditorStore((state) => state.editor);
+        const { editor } = useEditorStore();
         const headingLevels = [
                 { label: 'Normal', value: 0, fontSize: '16px' },
                 { label: 'Heading 1', value: 1, fontSize: '32px' },
@@ -263,6 +264,62 @@ const HeadingLevelButton = () => {
                                                 {label}
                                         </button>
                                 ))}
+                        </DropdownMenuContent>
+                </DropdownMenu>
+        );
+};
+
+const TextColorButton = () => {
+        const { editor } = useEditorStore();
+        const value = editor?.getAttributes('textStyle').color || '#000000';
+
+        const onChange = (color: ColorResult) => {
+                editor?.chain().focus().setColor(color.hex).run();
+        };
+
+        return (
+                <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                                <button
+                                        className={cn(
+                                                'h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm  hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm',
+                                        )}
+                                >
+                                        <span className="text-sm" style={{ color: value }}>
+                                                A
+                                        </span>
+                                        <div className="h-0.5 w-full" style={{ backgroundColor: value }} />
+                                </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="p-2 ">
+                                <CirclePicker color={value} onChange={onChange} />
+                        </DropdownMenuContent>
+                </DropdownMenu>
+        );
+};
+
+const TextHighlightButton = () => {
+        const { editor } = useEditorStore();
+        const value = editor?.getAttributes('highlight').color || '#000000';
+        const onChange = (color: ColorResult) => {
+                editor?.chain().focus().setHighlight({ color: color.hex }).run();
+        };
+
+        return (
+                <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                                <button
+                                        className={cn(
+                                                'h-7 min-w-7 shrink-0 flex flex-col items-center justify-center rounded-sm  hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm',
+                                        )}
+                                >
+                                        <HighlighterIcon className="size-4 mb-1" style={{ color: value }} />
+
+                                        <div className="h-0.5 w-full" style={{ backgroundColor: value }} />
+                                </button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="p-2 ">
+                                <SketchPicker color={value} onChange={onChange} />
                         </DropdownMenuContent>
                 </DropdownMenu>
         );
