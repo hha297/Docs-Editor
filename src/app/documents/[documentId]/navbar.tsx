@@ -1,0 +1,402 @@
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import { DocumentInput } from './document-input';
+import {
+        Menubar,
+        MenubarMenu,
+        MenubarTrigger,
+        MenubarContent,
+        MenubarItem,
+        MenubarSeparator,
+        MenubarSub,
+        MenubarSubTrigger,
+        MenubarSubContent,
+        MenubarShortcut,
+} from '@/components/ui/menubar';
+
+import {
+        FileJsonIcon,
+        FilePenIcon,
+        FilePlusIcon,
+        FileTextIcon,
+        FolderOpenIcon,
+        GlobeIcon,
+        PrinterIcon,
+        SaveIcon,
+        Trash2Icon,
+        Undo2Icon,
+        Redo2Icon,
+        ScissorsIcon,
+        CopyIcon,
+        ClipboardPasteIcon,
+        SearchIcon,
+        LayoutDashboardIcon,
+        RulerIcon,
+        SigmaIcon,
+        Maximize2Icon,
+        ImageIcon,
+        TableIcon,
+        PencilRulerIcon,
+        BarChart2Icon,
+        LinkIcon,
+        MessageCircleIcon,
+        SmileIcon,
+        SpellCheckIcon,
+        ListOrderedIcon,
+        FileDiffIcon,
+        MicIcon,
+        PuzzleIcon,
+        Code2Icon,
+        HelpCircleIcon,
+        GraduationCapIcon,
+        RefreshCcwIcon,
+        BugIcon,
+        TextIcon,
+        HeadingIcon,
+        AlignCenterIcon,
+        ListEndIcon,
+        ColumnsIcon,
+        ListIcon,
+        BoldIcon,
+        ItalicIcon,
+        UnderlineIcon,
+        StrikethroughIcon,
+        RemoveFormattingIcon,
+} from 'lucide-react';
+
+import { BsFilePdf } from 'react-icons/bs';
+
+export const Navbar = () => {
+        return (
+                <nav className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                                <Link href="/">
+                                        <Image src="/logo.svg" alt="Logo" width={30} height={30} />
+                                </Link>
+                                <div className="flex flex-col">
+                                        <DocumentInput />
+                                        <div className="flex ">
+                                                <Menubar className="border-none bg-transparent shadow-none h-auto p-0 text-sm">
+                                                        {/* File */}
+                                                        <MenubarMenu>
+                                                                <MenubarTrigger>File</MenubarTrigger>
+                                                                <MenubarContent className="print:hidden">
+                                                                        <MenubarSub>
+                                                                                <MenubarSubTrigger>
+                                                                                        <SaveIcon className="size-4 mr-2" />
+                                                                                        Save
+                                                                                </MenubarSubTrigger>
+                                                                                <MenubarSubContent>
+                                                                                        <MenubarItem>
+                                                                                                <FileJsonIcon className="size-4 mr-2" />
+                                                                                                Save as JSON
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem>
+                                                                                                <GlobeIcon className="size-4 mr-2" />
+                                                                                                Save as HTML
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem>
+                                                                                                <BsFilePdf className="size-4 mr-2" />
+                                                                                                Save as PDF
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem>
+                                                                                                <FileTextIcon className="size-4 mr-2" />
+                                                                                                Save as Text
+                                                                                        </MenubarItem>
+                                                                                </MenubarSubContent>
+                                                                        </MenubarSub>
+                                                                        <MenubarItem>
+                                                                                <FilePlusIcon className="size-4 mr-2" />
+                                                                                New Document
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <FolderOpenIcon className="size-4 mr-2" />
+                                                                                Open Document
+                                                                        </MenubarItem>
+
+                                                                        <MenubarSeparator />
+
+                                                                        <MenubarItem>
+                                                                                <FilePenIcon className="size-4 mr-2" />
+                                                                                Rename
+                                                                        </MenubarItem>
+
+                                                                        <MenubarItem>
+                                                                                <Trash2Icon className="size-4 mr-2" />
+                                                                                Move to trash
+                                                                        </MenubarItem>
+
+                                                                        <MenubarSeparator />
+                                                                        <MenubarItem onClick={() => window.print()}>
+                                                                                <PrinterIcon className="size-4 mr-2" />
+                                                                                Print{' '}
+                                                                                <MenubarShortcut>
+                                                                                        Ctrl+P
+                                                                                </MenubarShortcut>
+                                                                        </MenubarItem>
+                                                                </MenubarContent>
+                                                        </MenubarMenu>
+
+                                                        {/* Edit */}
+                                                        <MenubarMenu>
+                                                                <MenubarTrigger>Edit</MenubarTrigger>
+                                                                <MenubarContent>
+                                                                        <MenubarItem>
+                                                                                <Undo2Icon className="size-4 mr-2" />
+                                                                                Undo
+                                                                                <MenubarShortcut>
+                                                                                        Ctrl+Z
+                                                                                </MenubarShortcut>
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <Redo2Icon className="size-4 mr-2" />
+                                                                                Redo
+                                                                                <MenubarShortcut>
+                                                                                        Ctrl+Y
+                                                                                </MenubarShortcut>
+                                                                        </MenubarItem>
+                                                                        <MenubarSeparator />
+                                                                        <MenubarItem>
+                                                                                <ScissorsIcon className="size-4 mr-2" />
+                                                                                Cut
+                                                                                <MenubarShortcut>
+                                                                                        Ctrl+X
+                                                                                </MenubarShortcut>
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <CopyIcon className="size-4 mr-2" />
+                                                                                Copy
+                                                                                <MenubarShortcut>
+                                                                                        Ctrl+C
+                                                                                </MenubarShortcut>
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <ClipboardPasteIcon className="size-4 mr-2" />
+                                                                                Paste
+                                                                                <MenubarShortcut>
+                                                                                        Ctrl+V
+                                                                                </MenubarShortcut>
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <LayoutDashboardIcon className="size-4 mr-2" />
+                                                                                Select all
+                                                                                <MenubarShortcut>
+                                                                                        Ctrl+A
+                                                                                </MenubarShortcut>
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <SearchIcon className="size-4 mr-2" />
+                                                                                Find and replace
+                                                                                <MenubarShortcut>
+                                                                                        Ctrl+F
+                                                                                </MenubarShortcut>
+                                                                        </MenubarItem>
+                                                                </MenubarContent>
+                                                        </MenubarMenu>
+
+                                                        {/* View */}
+                                                        <MenubarMenu>
+                                                                <MenubarTrigger>View</MenubarTrigger>
+                                                                <MenubarContent>
+                                                                        <MenubarItem>
+                                                                                <LayoutDashboardIcon className="size-4 mr-2" />
+                                                                                Mode
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <RulerIcon className="size-4 mr-2" />
+                                                                                Show ruler
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <SigmaIcon className="size-4 mr-2" />
+                                                                                Show equation toolbar
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <Maximize2Icon className="size-4 mr-2" />
+                                                                                Full screen
+                                                                        </MenubarItem>
+                                                                </MenubarContent>
+                                                        </MenubarMenu>
+
+                                                        {/* Insert */}
+                                                        <MenubarMenu>
+                                                                <MenubarTrigger>Insert</MenubarTrigger>
+                                                                <MenubarContent>
+                                                                        <MenubarItem>
+                                                                                <ImageIcon className="size-4 mr-2" />
+                                                                                Image
+                                                                        </MenubarItem>
+                                                                        <MenubarSub>
+                                                                                <MenubarSubTrigger>
+                                                                                        <TableIcon className="size-4 mr-2" />
+                                                                                        Table
+                                                                                </MenubarSubTrigger>
+                                                                                <MenubarSubContent>
+                                                                                        <MenubarItem> 1x1</MenubarItem>
+                                                                                        <MenubarItem> 2x2</MenubarItem>
+                                                                                        <MenubarItem> 3x3</MenubarItem>
+                                                                                        <MenubarItem> 4x4</MenubarItem>
+                                                                                </MenubarSubContent>
+                                                                        </MenubarSub>
+                                                                        <MenubarItem>
+                                                                                <PencilRulerIcon className="size-4 mr-2" />
+                                                                                Drawing
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <BarChart2Icon className="size-4 mr-2" />
+                                                                                Chart
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <LinkIcon className="size-4 mr-2" />
+                                                                                Link
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <MessageCircleIcon className="size-4 mr-2" />
+                                                                                Comment
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <SmileIcon className="size-4 mr-2" />
+                                                                                Emoji
+                                                                        </MenubarItem>
+                                                                </MenubarContent>
+                                                        </MenubarMenu>
+                                                        {/* Format */}
+                                                        <MenubarMenu>
+                                                                <MenubarTrigger>Format</MenubarTrigger>
+                                                                <MenubarContent>
+                                                                        <MenubarSub>
+                                                                                <MenubarSubTrigger>
+                                                                                        <TextIcon className="size-4 mr-2" />
+                                                                                        Text
+                                                                                </MenubarSubTrigger>
+                                                                                <MenubarSubContent>
+                                                                                        <MenubarItem>
+                                                                                                <BoldIcon className="size-4 mr-2" />
+                                                                                                Bold
+                                                                                                <MenubarShortcut>
+                                                                                                        Ctrl+B
+                                                                                                </MenubarShortcut>
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem>
+                                                                                                <ItalicIcon className="size-4 mr-2" />
+                                                                                                Italic
+                                                                                                <MenubarShortcut>
+                                                                                                        Ctrl+I
+                                                                                                </MenubarShortcut>
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem>
+                                                                                                <UnderlineIcon className="size-4 mr-2" />
+                                                                                                Underline
+                                                                                                <MenubarShortcut>
+                                                                                                        Ctrl+U
+                                                                                                </MenubarShortcut>
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem>
+                                                                                                <StrikethroughIcon className="size-4 mr-2" />
+                                                                                                Strikethrough
+                                                                                                <MenubarShortcut className="ml-2">
+                                                                                                        Ctrl+⇧+X
+                                                                                                </MenubarShortcut>
+                                                                                        </MenubarItem>
+                                                                                </MenubarSubContent>
+                                                                        </MenubarSub>
+                                                                        <MenubarItem>
+                                                                                <HeadingIcon className="size-4 mr-2" />
+                                                                                Paragraph styles
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <AlignCenterIcon className="size-4 mr-2" />
+                                                                                Align & Indent
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <ListEndIcon className="size-4 mr-2" />
+                                                                                Line spacing
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <ColumnsIcon className="size-4 mr-2" />
+                                                                                Columns
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <ListIcon className="size-4 mr-2" />
+                                                                                Bullets & numbering
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <HeadingIcon className="size-4 mr-2" />
+                                                                                Headers & footers
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <RemoveFormattingIcon className="size-4 mr-2" />
+                                                                                Clear formatting
+                                                                        </MenubarItem>
+                                                                </MenubarContent>
+                                                        </MenubarMenu>
+
+                                                        {/* Tools */}
+                                                        <MenubarMenu>
+                                                                <MenubarTrigger>Tools</MenubarTrigger>
+                                                                <MenubarContent>
+                                                                        <MenubarItem>
+                                                                                <SpellCheckIcon className="size-4 mr-2" />
+                                                                                Spelling & grammar
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <ListOrderedIcon className="size-4 mr-2" />
+                                                                                Word count
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <FileDiffIcon className="size-4 mr-2" />
+                                                                                Compare documents
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <MicIcon className="size-4 mr-2" />
+                                                                                Voice typing
+                                                                        </MenubarItem>
+                                                                </MenubarContent>
+                                                        </MenubarMenu>
+
+                                                        {/* Extensions */}
+                                                        <MenubarMenu>
+                                                                <MenubarTrigger>Extensions</MenubarTrigger>
+                                                                <MenubarContent>
+                                                                        <MenubarItem>
+                                                                                <PuzzleIcon className="size-4 mr-2" />
+                                                                                Add-ons
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <Code2Icon className="size-4 mr-2" />
+                                                                                Apps Script
+                                                                        </MenubarItem>
+                                                                </MenubarContent>
+                                                        </MenubarMenu>
+
+                                                        {/* Help */}
+                                                        <MenubarMenu>
+                                                                <MenubarTrigger>Help</MenubarTrigger>
+                                                                <MenubarContent>
+                                                                        <MenubarItem>
+                                                                                <HelpCircleIcon className="size-4 mr-2" />
+                                                                                Help
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <GraduationCapIcon className="size-4 mr-2" />
+                                                                                Training
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <RefreshCcwIcon className="size-4 mr-2" />
+                                                                                Updates
+                                                                        </MenubarItem>
+                                                                        <MenubarItem>
+                                                                                <BugIcon className="size-4 mr-2" />
+                                                                                Report a problem
+                                                                        </MenubarItem>
+                                                                </MenubarContent>
+                                                        </MenubarMenu>
+                                                </Menubar>
+                                        </div>
+                                </div>
+                        </div>
+                </nav>
+        );
+};

@@ -1,4 +1,3 @@
-import { Divide } from 'lucide-react';
 import React, { useRef, useState } from 'react';
 import { FaCaretDown } from 'react-icons/fa';
 const markers = Array.from({ length: 83 }, (_, i) => i);

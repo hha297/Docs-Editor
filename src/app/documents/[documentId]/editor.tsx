@@ -20,6 +20,7 @@ import { useEditorStore } from '@/store/use-editor-store';
 import { FontSize } from '@/extensions/font-size';
 import { LineHeight } from '@/extensions/line-height';
 import { Ruler } from './ruler';
+
 export const Editor = () => {
         const { setEditor } = useEditorStore((state) => state);
         const editor = useEditor({
