@@ -68,8 +68,47 @@ import {
 } from 'lucide-react';
 
 import { BsFilePdf } from 'react-icons/bs';
+import { useEditorStore } from '@/store/use-editor-store';
 
 export const Navbar = () => {
+        const { editor } = useEditorStore();
+
+        const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
+                editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run();
+        };
+
+        const onDownload = (blob: Blob, fileName: string) => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                URL.revokeObjectURL(url);
+        };
+
+        const onSaveAsJson = () => {
+                if (!editor) return;
+                const json = editor.getJSON();
+                const blob = new Blob([JSON.stringify(json)], { type: 'application/json' });
+                onDownload(blob, 'document.json'); //TODO: Use the document name instead of 'document.json'
+        };
+
+        const onSaveAsHTML = () => {
+                if (!editor) return;
+                const html = editor.getHTML();
+                const blob = new Blob([html], { type: 'text/html' });
+                onDownload(blob, 'document.html'); //TODO: Use the document name instead of 'document.html'
+        };
+
+        //TODO: Save as PDF Func
+
+        const onSaveAsText = () => {
+                if (!editor) return;
+                const text = editor.getText();
+                const blob = new Blob([text], { type: 'text/plain' });
+                onDownload(blob, 'document.txt'); //TODO: Use the document name instead of 'document.txt'
+        };
+
         return (
                 <nav className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -90,19 +129,29 @@ export const Navbar = () => {
                                                                                         Save
                                                                                 </MenubarSubTrigger>
                                                                                 <MenubarSubContent>
-                                                                                        <MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={onSaveAsJson}
+                                                                                        >
                                                                                                 <FileJsonIcon className="size-4 mr-2" />
                                                                                                 Save as JSON
                                                                                         </MenubarItem>
-                                                                                        <MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={onSaveAsHTML}
+                                                                                        >
                                                                                                 <GlobeIcon className="size-4 mr-2" />
                                                                                                 Save as HTML
                                                                                         </MenubarItem>
-                                                                                        <MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        window.print()
+                                                                                                }
+                                                                                        >
                                                                                                 <BsFilePdf className="size-4 mr-2" />
                                                                                                 Save as PDF
                                                                                         </MenubarItem>
-                                                                                        <MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={onSaveAsText}
+                                                                                        >
                                                                                                 <FileTextIcon className="size-4 mr-2" />
                                                                                                 Save as Text
                                                                                         </MenubarItem>
@@ -144,14 +193,30 @@ export const Navbar = () => {
                                                         <MenubarMenu>
                                                                 <MenubarTrigger>Edit</MenubarTrigger>
                                                                 <MenubarContent>
-                                                                        <MenubarItem>
+                                                                        <MenubarItem
+                                                                                onClick={() =>
+                                                                                        editor
+                                                                                                ?.chain()
+                                                                                                .focus()
+                                                                                                .undo()
+                                                                                                .run()
+                                                                                }
+                                                                        >
                                                                                 <Undo2Icon className="size-4 mr-2" />
                                                                                 Undo
                                                                                 <MenubarShortcut>
                                                                                         Ctrl+Z
                                                                                 </MenubarShortcut>
                                                                         </MenubarItem>
-                                                                        <MenubarItem>
+                                                                        <MenubarItem
+                                                                                onClick={() =>
+                                                                                        editor
+                                                                                                ?.chain()
+                                                                                                .focus()
+                                                                                                .redo()
+                                                                                                .run()
+                                                                                }
+                                                                        >
                                                                                 <Redo2Icon className="size-4 mr-2" />
                                                                                 Redo
                                                                                 <MenubarShortcut>
@@ -234,10 +299,50 @@ export const Navbar = () => {
                                                                                         Table
                                                                                 </MenubarSubTrigger>
                                                                                 <MenubarSubContent>
-                                                                                        <MenubarItem> 1x1</MenubarItem>
-                                                                                        <MenubarItem> 2x2</MenubarItem>
-                                                                                        <MenubarItem> 3x3</MenubarItem>
-                                                                                        <MenubarItem> 4x4</MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        insertTable({
+                                                                                                                rows: 1,
+                                                                                                                cols: 1,
+                                                                                                        })
+                                                                                                }
+                                                                                        >
+                                                                                                {' '}
+                                                                                                1x1
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        insertTable({
+                                                                                                                rows: 2,
+                                                                                                                cols: 2,
+                                                                                                        })
+                                                                                                }
+                                                                                        >
+                                                                                                {' '}
+                                                                                                2x2
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        insertTable({
+                                                                                                                rows: 3,
+                                                                                                                cols: 3,
+                                                                                                        })
+                                                                                                }
+                                                                                        >
+                                                                                                {' '}
+                                                                                                3x3
+                                                                                        </MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        insertTable({
+                                                                                                                rows: 4,
+                                                                                                                cols: 4,
+                                                                                                        })
+                                                                                                }
+                                                                                        >
+                                                                                                {' '}
+                                                                                                4x4
+                                                                                        </MenubarItem>
                                                                                 </MenubarSubContent>
                                                                         </MenubarSub>
                                                                         <MenubarItem>
@@ -272,28 +377,60 @@ export const Navbar = () => {
                                                                                         Text
                                                                                 </MenubarSubTrigger>
                                                                                 <MenubarSubContent>
-                                                                                        <MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        editor
+                                                                                                                ?.chain()
+                                                                                                                .focus()
+                                                                                                                .toggleBold()
+                                                                                                                .run()
+                                                                                                }
+                                                                                        >
                                                                                                 <BoldIcon className="size-4 mr-2" />
                                                                                                 Bold
                                                                                                 <MenubarShortcut>
                                                                                                         Ctrl+B
                                                                                                 </MenubarShortcut>
                                                                                         </MenubarItem>
-                                                                                        <MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        editor
+                                                                                                                ?.chain()
+                                                                                                                .focus()
+                                                                                                                .toggleItalic()
+                                                                                                                .run()
+                                                                                                }
+                                                                                        >
                                                                                                 <ItalicIcon className="size-4 mr-2" />
                                                                                                 Italic
                                                                                                 <MenubarShortcut>
                                                                                                         Ctrl+I
                                                                                                 </MenubarShortcut>
                                                                                         </MenubarItem>
-                                                                                        <MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        editor
+                                                                                                                ?.chain()
+                                                                                                                .focus()
+                                                                                                                .toggleUnderline()
+                                                                                                                .run()
+                                                                                                }
+                                                                                        >
                                                                                                 <UnderlineIcon className="size-4 mr-2" />
                                                                                                 Underline
                                                                                                 <MenubarShortcut>
                                                                                                         Ctrl+U
                                                                                                 </MenubarShortcut>
                                                                                         </MenubarItem>
-                                                                                        <MenubarItem>
+                                                                                        <MenubarItem
+                                                                                                onClick={() =>
+                                                                                                        editor
+                                                                                                                ?.chain()
+                                                                                                                .focus()
+                                                                                                                .toggleStrike()
+                                                                                                                .run()
+                                                                                                }
+                                                                                        >
                                                                                                 <StrikethroughIcon className="size-4 mr-2" />
                                                                                                 Strikethrough
                                                                                                 <MenubarShortcut className="ml-2">
@@ -326,7 +463,15 @@ export const Navbar = () => {
                                                                                 <HeadingIcon className="size-4 mr-2" />
                                                                                 Headers & footers
                                                                         </MenubarItem>
-                                                                        <MenubarItem>
+                                                                        <MenubarItem
+                                                                                onClick={() =>
+                                                                                        editor
+                                                                                                ?.chain()
+                                                                                                .focus()
+                                                                                                .unsetAllMarks()
+                                                                                                .run()
+                                                                                }
+                                                                        >
                                                                                 <RemoveFormattingIcon className="size-4 mr-2" />
                                                                                 Clear formatting
                                                                         </MenubarItem>
