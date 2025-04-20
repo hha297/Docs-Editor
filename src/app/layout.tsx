@@ -4,6 +4,7 @@ import { League_Spartan } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
+import { ConvexClientProvider } from '@/components/convex-client-provider';
 
 const leagueSpartan = League_Spartan({
         subsets: ['latin'],
@@ -23,7 +24,9 @@ export default function RootLayout({
                 <html lang="en">
                         <body className={cn(leagueSpartan.className, 'antialiased min-h-screen')}>
                                 <Toaster />
-                                <NuqsAdapter>{children}</NuqsAdapter>
+                                <NuqsAdapter>
+                                        <ConvexClientProvider>{children}</ConvexClientProvider>
+                                </NuqsAdapter>
                         </body>
                 </html>
         );
