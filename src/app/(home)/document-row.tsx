@@ -1,18 +1,23 @@
-import { Button } from '@/components/ui/button';
 import { Doc } from '../../../convex/_generated/dataModel';
 import { TableRow, TableCell } from '@/components/ui/table';
 import { format } from 'date-fns';
-import { Building2Icon, CircleUserIcon, MoreVerticalIcon } from 'lucide-react';
+import { Building2Icon, CircleUserIcon } from 'lucide-react';
 import { SiGoogledocs } from 'react-icons/si';
+
+import { DocumentMenu } from './document-menu';
+import { useRouter } from 'next/navigation';
 interface DocumentRowProps {
         document: Doc<'documents'>;
 }
 
 export const DocumentRow = ({ document }: DocumentRowProps) => {
-        // import and use shadcn/ui table row, cell
+        const router = useRouter();
 
         return (
-                <TableRow className="hover:bg-transparent border-none cursor-pointer">
+                <TableRow
+                        className="hover:bg-transparent border-none cursor-pointer"
+                        onClick={() => router.push(`/documents/${document._id}`)}
+                >
                         <TableCell className="text-muted-foreground">
                                 <SiGoogledocs className="size-4 fill-blue-600" />
                         </TableCell>
@@ -30,9 +35,11 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
                         </TableCell>
                         {/* More action */}
                         <TableCell className="flex justify-end">
-                                <Button variant="ghost" className="size-4 hover:bg-transparent rounded-full">
-                                        <MoreVerticalIcon className="size-4 text-muted-foreground" />
-                                </Button>
+                                <DocumentMenu
+                                        documentId={document._id}
+                                        title={document.title}
+                                        onNewTab={() => window.open(`/documents/${document._id}`, '_blank')}
+                                />
                         </TableCell>
                 </TableRow>
         );
