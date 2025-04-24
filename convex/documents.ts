@@ -3,9 +3,26 @@ import { mutation, query } from './_generated/server';
 import { paginationOptsValidator } from 'convex/server';
 
 export const get = query({
-        args: { paginationOpts: paginationOptsValidator },
-        handler: async (ctx, args) => {
-                return await ctx.db.query('documents').paginate(args.paginationOpts);
+        args: { paginationOpts: paginationOptsValidator, search: v.optional(v.string()) },
+        handler: async (ctx, { paginationOpts, search }) => {
+                const user = await ctx.auth.getUserIdentity();
+                if (!user) {
+                        throw new Error('Unauthenticated user');
+                }
+
+                if (search) {
+                        return await ctx.db
+                                .query('documents')
+                                .withSearchIndex('search_title', (q) =>
+                                        q.search('title', search).eq('ownerId', user.subject),
+                                )
+                                .paginate(paginationOpts);
+                }
+
+                return await ctx.db
+                        .query('documents')
+                        .withIndex('by_owner_id', (q) => q.eq('ownerId', user.subject))
+                        .paginate(paginationOpts);
                 // do something with `tasks`
         },
 });
