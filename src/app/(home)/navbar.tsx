@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { SearchInput } from './search-input';
-import { UserButton } from '@clerk/nextjs';
+import { OrganizationSwitcher, UserButton } from '@clerk/nextjs';
 
 export const Navbar = () => {
         return (
@@ -14,7 +14,16 @@ export const Navbar = () => {
                                 </Link>
                         </div>
                         <SearchInput />
-                        <UserButton />
+                        <div className="flex items-center gap-4 pl-4">
+                                <OrganizationSwitcher
+                                        afterCreateOrganizationUrl={'/'}
+                                        afterLeaveOrganizationUrl="/"
+                                        afterSelectOrganizationUrl={'/'}
+                                        afterSelectPersonalUrl={'/'}
+                                />
+
+                                <UserButton />
+                        </div>
                 </nav>
         );
 };

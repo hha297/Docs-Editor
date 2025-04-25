@@ -24,7 +24,7 @@ export const DocumentRow = ({ document }: DocumentRowProps) => {
                         <TableCell className="font-medium md:w-1/2"> {document.title}</TableCell>
                         <TableCell className="text-muted-foreground hidden md:flex items-center gap-2">
                                 {document.organizationId ? (
-                                        <Building2Icon className="size-4 " />
+                                        <Building2Icon className="size-4 text-blue-500" />
                                 ) : (
                                         <CircleUserIcon className="size-4 text-blue-500" />
                                 )}
