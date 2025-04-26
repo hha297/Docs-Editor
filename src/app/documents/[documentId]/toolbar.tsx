@@ -112,7 +112,12 @@ export const Toolbar = () => {
                 ],
 
                 [
-                        { label: 'Comment', icon: MessageSquarePlusIcon, onClick: () => {}, isActive: false },
+                        {
+                                label: 'Comment',
+                                icon: MessageSquarePlusIcon,
+                                onClick: () => editor?.chain().focus().addPendingComment().run(),
+                                isActive: editor?.isActive('liveblocks'),
+                        },
                         {
                                 label: 'Todolist',
                                 icon: ListTodoIcon,
@@ -277,7 +282,8 @@ const HeadingLevelButton = () => {
                                                         if (value === 0) {
                                                                 editor?.chain().focus().setParagraph().run();
                                                         } else {
-                                                                editor?.chain()
+                                                                editor
+                                                                        ?.chain()
                                                                         .focus()
                                                                         .toggleHeading({ level: value as Level })
                                                                         .run();

@@ -1,5 +1,6 @@
 'use client';
 import { useEditor, EditorContent } from '@tiptap/react';
+import { useLiveblocksExtension } from '@liveblocks/react-tiptap';
 import StarterKit from '@tiptap/starter-kit';
 import TaskList from '@tiptap/extension-task-list';
 import TaskItem from '@tiptap/extension-task-item';
@@ -20,8 +21,10 @@ import { useEditorStore } from '@/store/use-editor-store';
 import { FontSize } from '@/extensions/font-size';
 import { LineHeight } from '@/extensions/line-height';
 import { Ruler } from './ruler';
+import { Threads } from './threads';
 
 export const Editor = () => {
+        const liveblocks = useLiveblocksExtension();
         const { setEditor } = useEditorStore((state) => state);
         const editor = useEditor({
                 immediatelyRender: false,
@@ -62,7 +65,10 @@ export const Editor = () => {
                                 types: ['paragraph', 'heading'],
                                 defaultLineHeight: 'normal',
                         }),
-                        StarterKit,
+                        StarterKit.configure({
+                                // The Liveblocks extension comes with its own history handling
+                                history: false,
+                        }),
                         TaskList,
                         TaskItem.configure({ nested: true }),
                         Table.configure({
@@ -157,6 +163,7 @@ export const Editor = () => {
                         TextAlign.configure({
                                 types: ['heading', 'paragraph'],
                         }),
+                        liveblocks,
                 ],
                 content: ``,
         });
@@ -169,6 +176,7 @@ export const Editor = () => {
                         <Ruler />
                         <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print::min-w-0">
                                 <EditorContent editor={editor} />
+                                <Threads editor={editor} />
                         </div>
                 </div>
         );
