@@ -77,7 +77,7 @@ export const deleteById = mutation({
                         throw new Error('Document not found');
                 }
                 const isOwner = document.ownerId === user.subject;
-                const isOrganizationMember = document.organizationId === organizationId;
+                const isOrganizationMember = !!(document.organizationId && document.organizationId === organizationId);
 
                 if (!isOwner && !isOrganizationMember) {
                         throw new Error('User is not the owner of the document');
@@ -99,7 +99,7 @@ export const updateById = mutation({
                         throw new Error('Document not found');
                 }
                 const isOwner = document.ownerId === user.subject;
-                const isOrganizationMember = document.organizationId === organizationId;
+                const isOrganizationMember = !!(document.organizationId && document.organizationId === organizationId);
 
                 if (!isOwner && !isOrganizationMember) {
                         throw new Error('User is not the owner of the document');
@@ -108,5 +108,12 @@ export const updateById = mutation({
                 return await ctx.db.patch(args.documentId, {
                         title: args.title,
                 });
+        },
+});
+
+export const getById = query({
+        args: { documentId: v.id('documents') },
+        handler: async (ctx, args) => {
+                return await ctx.db.get(args.documentId);
         },
 });
