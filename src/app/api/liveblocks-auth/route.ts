@@ -28,16 +28,13 @@ export async function POST(req: Request) {
         const isOwner = document.ownerId === user.id;
         const isOrganizationMember = !!(document.organizationId && document.organizationId === sessionClaimsOrgId);
 
-        console.log('Is owner:', isOwner);
-        console.log('Is organization member:', isOrganizationMember);
-
         if (!isOwner && !isOrganizationMember) {
                 return new Response('Unauthorized', { status: 403 });
         }
 
         const session = liveblocks.prepareSession(user.id, {
                 userInfo: {
-                        name: user.fullName ?? 'Anonymous',
+                        name: user.fullName ?? user.primaryEmailAddress?.emailAddress ?? 'Anonymous',
                         avatar: user.imageUrl,
                 },
         });
