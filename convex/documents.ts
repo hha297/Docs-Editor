@@ -2,6 +2,23 @@ import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
 import { paginationOptsValidator } from 'convex/server';
 
+export const getByIds = query({
+        args: { documentIds: v.array(v.id('documents')) },
+        handler: async (ctx, { documentIds }) => {
+                const documents = [];
+                for (const documentId of documentIds) {
+                        const document = await ctx.db.get(documentId);
+                        if (document) {
+                                documents.push({ id: document._id, name: document.title });
+                        } else {
+                                documents.push({ documentId, name: 'Document not found' });
+                        }
+                }
+
+                return documents;
+        },
+});
+
 export const get = query({
         args: { paginationOpts: paginationOptsValidator, search: v.optional(v.string()) },
         handler: async (ctx, { paginationOpts, search }) => {
