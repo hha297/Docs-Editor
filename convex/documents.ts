@@ -131,6 +131,11 @@ export const updateById = mutation({
 export const getById = query({
         args: { documentId: v.id('documents') },
         handler: async (ctx, args) => {
-                return await ctx.db.get(args.documentId);
+                const document = await ctx.db.get(args.documentId);
+
+                if (!document) {
+                        throw new Error('Document not found');
+                }
+                return document;
         },
 });

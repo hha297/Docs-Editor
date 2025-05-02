@@ -16,6 +16,7 @@ import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 interface DeleteDialogProps {
         documentId: Id<'documents'>;
@@ -23,6 +24,7 @@ interface DeleteDialogProps {
 }
 
 export const DeleteDialog = ({ documentId, children }: DeleteDialogProps) => {
+        const router = useRouter();
         const remove = useMutation(api.documents.deleteById);
         const [isDeleting, setIsDeleting] = useState(false);
 
@@ -45,10 +47,18 @@ export const DeleteDialog = ({ documentId, children }: DeleteDialogProps) => {
                                                 onClick={(e) => {
                                                         e.stopPropagation();
                                                         setIsDeleting(true);
-                                                        remove({ documentId }).finally(() => {
-                                                                setIsDeleting(false);
-                                                        });
-                                                        toast.success('Document deleted!');
+                                                        remove({ documentId })
+                                                                .then(() => {
+                                                                        toast.success('Document deleted!');
+
+                                                                        router.push('/');
+                                                                })
+                                                                .catch(() => {
+                                                                        toast.error('Failed to delete document');
+                                                                })
+                                                                .finally(() => {
+                                                                        setIsDeleting(false);
+                                                                });
                                                 }}
                                         >
                                                 Delete
