@@ -49,7 +49,7 @@ export const TemplateGallery = () => {
                                                                                 onClick={() =>
                                                                                         onTemplateClick(
                                                                                                 template.label,
-                                                                                                '',
+                                                                                                template.initialContent,
                                                                                                 // TODO: add initial content for each template
                                                                                         )
                                                                                 }
