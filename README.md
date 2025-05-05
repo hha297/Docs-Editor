@@ -3,8 +3,6 @@
 A **professional-grade Google Docs clone** featuring a rich text editor with real-time collaboration, inline comments, threaded discussions, customizable templates, and powerful document management.  
 Built for **teams and organizations** with advanced editing tools, export options, and seamless authentication.
 
----
-
 ## 🚀 Tech Stack
 
 - **Next.js 15**
@@ -15,8 +13,6 @@ Built for **teams and organizations** with advanced editing tools, export option
 - **TipTap Editor**
 - **Liveblocks**
 - **Clerk**
-
----
 
 ## ✨ Features
 
@@ -43,15 +39,43 @@ Built for **teams and organizations** with advanced editing tools, export option
 - ⚛️ **Next.js 15 Framework**: Leveraging the latest features of Next.js 15 for performance and scalability.
 - 🎨 **Shadcn UI & Tailwind CSS**: Modern, accessible UI components styled with Tailwind CSS and Shadcn UI.
 
----
+## 🛠️ Installation
+
+```bash
+git clone https://github.com/hha297/Docs-Editor.git
+cd <repository-folder>
+npm install
+```
+
+## ⚙️ Environment Variables
+
+Create a `.env.local` file in the root directory and add the following environment variables:
+
+```env
+CONVEX_DEPLOYMENT=
+NEXT_PUBLIC_CONVEX_URL=
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+LIVEBLOCKS_SECRET_KEY=
+```
+
+👉 **Fill in each variable with your Convex, Clerk, and Liveblocks credentials.**
+
+## ▶️ Running the project
+
+```bash
+npx convex dev
+npm run dev
+```
+
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 📄 License
 
 [MIT License](LICENSE)
 
----
-
 ## 🙌 Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
-
