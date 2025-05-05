@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Docs Editor – Professional-Grade Collaborative Document Editor
 
-## Getting Started
+A **professional-grade Google Docs clone** featuring a rich text editor with real-time collaboration, inline comments, threaded discussions, customizable templates, and powerful document management.  
+Built for **teams and organizations** with advanced editing tools, export options, and seamless authentication.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Next.js 15**
+- **React.js**
+- **TypeScript**
+- **TailwindCSS**
+- **Convex**
+- **TipTap Editor**
+- **Liveblocks**
+- **Clerk**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Features
 
-## Learn More
+- 📝 **Rich Text Editor**: Powerful TipTap editor supporting bold, italic, underline, code blocks, and more.
+- 🤝 **Real-time Collaboration**: Work together in real-time with synced edits, cursor tracking, and conflict resolution.
+- 💭 **Comments & Mentions**: Inline comments, threaded discussions, and user mentions for seamless team communication.
+- 🔔 **Notifications System**: In-app notifications to stay updated on comments, mentions, and collaboration events.
+- 📑 **Document Templates**: Create and reuse custom templates to speed up document creation.
+- 📋 **Copy & Paste Formatting**: Preserve formatting when copying and pasting content.
+- ↩️ **Undo/Redo History**: Navigate editing history with unlimited undo and redo functionality.
+- 📊 **Table Support**: Insert and customize tables directly in the editor.
+- 🖼️ **Image Uploads**: Upload and embed images with resizing and alignment controls.
+- 📏 **Margin Controls**: Customize document margins and layout settings.
+- ⬇️ **Export**: Download documents as PDF, HTML, TXT, or JSON for flexibility in sharing and storage.
+- 👥 **User Profiles**: Manage user accounts with profile settings, avatars, and user information.
+- 🏢 **Organization Workspaces**: Group users into organizations with isolated document workspaces.
+- ✉️ **Organization Invites**: Invite members to your organization via email or link-based invites.
+- 🔒 **Authentication**: Secure user authentication with Clerk for sign-up, login, and session management.
+- 📱 **Responsive Design**: Optimized for desktops, tablets, and mobile devices.
+- 🎯 **Cursor Tracking**: View collaborators’ cursors in real-time with user identification.
+- 🎨 **Text Formatting Tools**: Full suite of formatting tools including headings, lists, blockquotes, and more.
+- 📝 **Lists & Checklists**: Create ordered, unordered, and checklist-style lists.
+- 🔗 **Link Embedding**: Embed and manage hyperlinks within documents.
+- ⚛️ **Next.js 15 Framework**: Leveraging the latest features of Next.js 15 for performance and scalability.
+- 🎨 **Shadcn UI & Tailwind CSS**: Modern, accessible UI components styled with Tailwind CSS and Shadcn UI.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📄 License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[MIT License](LICENSE)
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🙌 Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+
